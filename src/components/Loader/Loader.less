@@ -1,0 +1,125 @@
+@import (reference) '../../styles/main.less';
+
+.donut-loader-base() {
+  @keyframes rotate {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  .size(11);
+
+  display: inline-block;
+  animation: rotate 0.8s linear infinite;
+  border-radius: 50%;
+  background-repeat: no-repeat;
+  background-size: 5px 5px, 6px 5px, 6px 6px, 5px 6px;
+  background-position: bottom left, bottom right, top right, top left;
+  position: relative;
+  margin-top: -2px;
+  vertical-align: middle;
+
+  &::before {
+    .size(2, 1);
+    position: absolute;
+    content: '';
+    left: 0;
+    top: 5px;
+    border-radius: 1px 1px 0 0;
+  }
+
+  &::after {
+    .size(7);
+    position: absolute;
+    content: '';
+    left: 2px;
+    top: 2px;
+    border-radius: 50%;
+  }
+}
+
+.donut-loader-size-large() {
+  .size(22);
+
+  background-size: 11px 11px, 11px 11px, 11px 11px, 11px 11px;
+
+  &::before {
+    .size(4);
+    top: 10px;
+    border-radius: 10px 10px 0 0;
+  }
+
+  &::after {
+    .size(14);
+    left: 4px;
+    top: 4px;
+  }
+}
+
+.donut-loader-color(@donut: @blue-2, @inner: @white) {
+  background-color: fade(@donut, 0%);
+  background-image: linear-gradient(135deg, @donut, fade(@donut, 70%)),
+    linear-gradient(45deg, fade(@donut, 70%), fade(@donut, 40%)),
+    linear-gradient(135deg, fade(@donut, 10%), fade(@donut, 40%)),
+    linear-gradient(45deg, fade(@donut, 0%) 40%, fade(@donut, 10%));
+
+  &::before {
+    background-color: @donut;
+  }
+
+  &::after {
+    background-color: @inner;
+  }
+}
+
+.donut-loader(@donut: @blue-2, @inner: @white) {
+  .donut-loader-base;
+  .donut-loader-color(@donut, @inner);
+}
+
+.donut-loader-large(@donut: @blue-2, @inner: @white) {
+  .donut-loader-base;
+  .donut-loader-color(@donut, @inner);
+  .donut-loader-size-large;
+}
+
+.rtc-loader {
+  position: relative;
+  height: 100%;
+  width: 100%;
+
+  .donut-loader {
+    .donut-loader();
+
+    &[data-color='blue'] {
+      .donut-loader-color(@blue-2);
+    }
+
+    &[data-color='gray'] {
+      .donut-loader-color(@gray-1);
+    }
+
+    &[data-size='large'] {
+      .donut-loader-size-large();
+    }
+
+    &[data-theme='dark'] {
+      .donut-loader-color(@inner: @black);
+    }
+  }
+
+  // Create a loader style to overlay the inner container
+  > .overlay-loader {
+    .flex-box-center();
+
+    background-color: fade(@white, 90%);
+    z-index: @app-loader-z-index;
+  }
+
+  .rtc-loader-tip {
+    padding-left: 10px;
+  }
+}
