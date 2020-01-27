@@ -1,0 +1,390 @@
+@import (reference) '../../styles/main.less';
+
+.rtc.rtc-checkbox {
+  // Local Vars
+  @border-radius: 3px;
+  @circular-border-radius: 50%;
+  @toggle-border-radius: 6px;
+  @default-size: 12px;
+  @rounded-size: 16px;
+  @line-height: 1;
+  @partial-check: 2px;
+  @toggle-check-width: 22px;
+  @toggle-check-height: 12px;
+  @check-trans-speed: 0.3s;
+
+  position: relative;
+  display: inline-block;
+  line-height: @line-height;
+
+  & > label {
+    display: flex;
+    line-height: @line-height;
+    position: relative;
+    cursor: pointer;
+  }
+
+  // SVG
+  .svg-rtc-checkbox {
+    // Resets
+    margin: 0;
+    padding: 0;
+    width: @default-size;
+    height: @default-size;
+    border-radius: @border-radius;
+    cursor: pointer;
+    position: relative;
+    background-color: @white;
+    border: 1px solid @gray-1;
+    top: 1px;
+    z-index: 0;
+
+    //Label
+    + span {
+      cursor: pointer;
+      position: relative;
+      margin-left: 10px;
+      .font-styling(@default-font-size, @font-weight-regular, @default-font-size);
+
+      &:empty {
+        margin-left: 0;
+        top: 0;
+      }
+    }
+
+    // Animated background
+    &-bg {
+      content: " ";
+      display: block;
+      width: @default-size;
+      height: @default-size;
+      position: absolute;
+      left: -1px;
+      top: -1px;
+      z-index: 2;
+      border-radius: @circular-border-radius;
+      transform: scale(0);
+      transition: all @checkbox-anim-duration @checkbox-anim-ease-out-cubic;
+      transition-delay: @checkbox-anim-duration;
+    }
+
+    //checkmarkIcon SVG
+    svg.check-mark-icon {
+      width: @default-size;
+      height: @default-size;
+      position: absolute;
+      left: -1px;
+      top: -1px;
+
+      &.icon-checked {
+        z-index: 3;
+      }
+
+      &.icon-hover {
+        z-index: 1;
+      }
+    }
+
+    // Rounded variant
+    &.checkbox-variant-rounded {
+      border-color: @light-gray-2;
+      width: @rounded-size;
+      height: @rounded-size;
+      border-radius: @circular-border-radius;
+      transition: all @checkbox-anim-duration;
+
+      &:hover {
+        border-color: @light-blue-1;
+        background-color: @light-blue-1;
+      }
+
+      svg.check-mark-icon {
+        margin: 2px;
+      }
+
+      .svg-rtc-checkbox-bg {
+        width: @rounded-size;
+        height: @rounded-size;
+      }
+    }
+
+    //Toggle Varient
+    &.checkbox-variant-toggle {
+      width: @toggle-check-width;
+      height: @toggle-check-height;
+      border-radius: @toggle-border-radius;
+      background-color: @light-gray-3;
+      border: none;
+      transition: all @check-trans-speed;
+      overflow: hidden;
+      box-shadow: inset 0 0 0 1px @light-gray-1;
+
+      &::before {
+        content: " ";
+        width: @toggle-check-width;
+        height: @toggle-check-height;
+        border-radius: @toggle-border-radius;
+        position: absolute;
+        left: -10px;
+        top: 0;
+        z-index: 1;
+        background-color: transparent;
+        transition:
+          left @check-trans-speed ease 0s,
+          background-color 0s ease @check-trans-speed;
+      }
+
+      // Handle
+      &::after {
+        content: " ";
+        width: @toggle-check-height;
+        height: @toggle-check-height;
+        border-radius: @circular-border-radius;
+        position: absolute;
+        left: 0;
+        top: 0;
+        z-index: 2;
+        background-color: @white;
+        box-shadow: inset 0 0 0 1px @gray-1;
+        transition: all @check-trans-speed 0ms;
+        transform: scale(1);
+      }
+    }
+
+    // Partially selected -- dash instead of check
+    &.checkbox-variant-partial-check {
+      &::before {
+        content: '';
+        display: block;
+        height: @partial-check;
+        left: 2px;
+        right: 2px;
+        top: 50%;
+        margin-top: -1px;
+        background: @white;
+        position: absolute;
+        border-radius: @partial-check;
+        transform: scale(0);
+        transition: all @checkbox-anim-duration @checkbox-anim-bounce;
+      }
+    }
+  }
+
+  // Different states of checkbox
+  .n-checkbox {
+
+    //Default Checkbox
+    &[type="checkbox"] {
+      position: absolute;
+      // Make sure the checkbox is above the svg so that shift + click works
+      // The user will end up clicking on the invisible checkbox element instead
+      // of relying on the label element to trigger the checked state of the
+      // checkbox element
+      z-index: 4;
+      cursor: pointer;
+      opacity: 0;
+      width: @default-size;
+      height: @default-size;
+      top: 1px;
+
+      //Bootstrap override
+      + label .n-checkbox {
+        max-width: none;
+        min-width: @default-size;
+      }
+
+      ~ .checkbox-nested-content {
+        margin: 20px 0 0 5px;
+        padding-left: 15px;
+        border-left: 2px solid @light-gray-3;
+      }
+
+      &:not(:checked) {
+        ~ .checkbox-nested-content {
+          opacity: 0.5;
+
+          .n-checkbox[type="checkbox"] {
+            &:not(:checked) {
+              ~ .checkbox-nested-content {
+                opacity: 1;
+              }
+            }
+          }
+        }
+      }
+
+      //Focus & Hover - Added shadow to the checkbox to indicate the user if navigated through tab or on Hover
+      &:focus,
+      &:hover {
+        + label .n-checkbox {
+          &.default {
+            box-shadow: 0 0 2px fade(@blue-2, 50%);
+          }
+        }
+      }
+
+      &:disabled {
+        &:focus,
+        &:hover {
+          + label .n-checkbox {
+            &.default {
+              box-shadow: none;
+            }
+          }
+        }
+      }
+    }
+
+    //Checked and Unchecked Animation
+    &:checked {
+      + label .svg-rtc-checkbox {
+        // Animated BG Fill
+        .svg-rtc-checkbox-bg {
+          border-radius: @border-radius;
+          transform: scale(1);
+          transition: all @checkbox-anim-duration @checkbox-anim-ease-in-circ;
+          transition-delay: 0;
+        }
+
+        // Rounded checked Animation
+        &.checkbox-variant-rounded {
+          .svg-rtc-checkbox-bg {
+            border-radius: @circular-border-radius;
+          }
+        }
+
+        //Toggle checked Animation
+        &.checkbox-variant-toggle {
+          transition: all @checkbox-anim-duration @check-trans-speed;
+
+          &::before {
+            left: 0;
+            background-color: @blue-1;
+            box-shadow: inset 0 0 0 1px @blue-1;
+            transition: all @check-trans-speed;
+          }
+
+          // handle
+          &::after {
+            left: 10px;
+            box-shadow: inset 0 0 0 1px @dark-blue-3;
+            transition: all @check-trans-speed 0ms;
+            border-radius: @circular-border-radius;
+          }
+        }
+
+        //Dash animation
+        &.checkbox-variant-partial-check {
+          &::before {
+            transform: scale(1);
+            z-index: 3;
+          }
+
+          svg.check-mark-icon {
+            display: none;
+          }
+        }
+      }
+    }
+
+    // Toggle variant: Unchecked and Pressed (active)
+    + label .svg-rtc-checkbox {
+      &:active {
+        // Track
+        &.checkbox-variant-toggle {
+          background-color: @light-gray-2;
+          box-shadow: inset 0 0 0 1px @gray-3;
+
+          // Handle
+          &::after {
+            box-shadow: inset 0 0 0 1px @gray-1;
+          }
+        }
+      }
+    }
+
+    // Toggle variant: Checked and Pressed (active)
+    &:checked {
+      + label .svg-rtc-checkbox {
+        &:active {
+          // Track
+          &.checkbox-variant-toggle {
+            box-shadow: none;
+
+            // Track when checked (right part)
+            &::before {
+              background-color: @blue-1;
+              box-shadow: inset 0 0 0 1px @dark-blue-2;
+            }
+
+            // Handle
+            &::after {
+              box-shadow: inset 0 0 0 1px @dark-blue-1;
+            }
+          }
+        }
+      }
+    }
+
+    //Disabled state
+    &:disabled {
+      + label .svg-rtc-checkbox {
+        background-color: @light-gray-3;
+        border: 1px solid @light-gray-1;
+        cursor: not-allowed;
+
+        &.checkbox-variant-toggle {
+          border: none;
+          background: transparent;
+          box-shadow: inset 0 0 0 1px @light-gray-1;
+
+          // handle
+          &::after {
+            box-shadow: inset 0 0 0 1px @light-gray-1;
+            background-color: @white;
+          }
+        }
+
+        + span {
+          cursor: default;
+        }
+      }
+
+      &:checked {
+        + label .svg-rtc-checkbox {
+          border-color: transparent;
+
+          &.checkbox-variant-toggle {
+            box-shadow: none;
+            background: transparent;
+
+            &::before {
+              box-shadow: none;
+              background-color: fade(@blue-1, 30%);
+            }
+
+            // handle
+            &::after {
+              box-shadow: inset 0 0 0 1px mix(@blue-1, @white, 30%);
+            }
+          }
+        }
+      }
+    }
+
+    &.hide {
+      display: none;
+    }
+  }
+
+  // checkbox label with multiline
+  &.rtc-checkbox-label-multi-line {
+    .svg-rtc-checkbox {
+      top: 5px;
+
+      & + span {
+        line-height: 22px;
+      }
+    }
+  }
+}

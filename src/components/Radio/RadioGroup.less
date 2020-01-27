@@ -1,0 +1,104 @@
+@import (reference) '../../styles/main.less';
+
+.rtc.rtc-radio-group {
+  display: flex;
+
+  &.vertical {
+    flex-direction: column;
+
+    .rtc-radio + * {
+      margin-top: 15px;
+    }
+
+    .rtc-radio-html-content + * {
+      margin-top: 10px;
+    }
+  }
+
+  // RadioSwitcher type styles
+  &.rtc-radio-group-solid {
+    flex-direction: row;
+
+    .rtc-radio {
+      margin: 0;
+      height: 32px;
+      line-height: 30px;
+      padding: 0 15px;
+      background-color: @white;
+      border-top: 1px solid @light-gray-2;
+      border-bottom: 1px solid @light-gray-2;
+
+      .ant-radio {
+        opacity: 0;
+        width: 0;
+        height: 0;
+
+        & + span {
+          color: @gray-1;
+          padding: 0;
+          font-weight: @font-weight-medium;
+        }
+      }
+
+      &:hover {
+        .ant-radio + span {
+          color: @blue-1;
+        }
+      }
+
+      &:first-child {
+        border-radius: 4px 0 0 4px;
+        border-left: 1px solid @light-gray-2;
+
+        &.ant-radio-wrapper-checked {
+          border-color: transparent;
+        }
+      }
+
+      &:last-child {
+        border-radius: 0 4px 4px 0;
+        border-right: 1px solid @light-gray-2;
+      }
+
+      &.ant-radio-wrapper {
+        &:not(:first-child) {
+          &::before {
+            content: '';
+            display: block;
+            top: 0;
+            left: 0;
+            width: 1px;
+            height: 100%;
+            position: absolute;
+            background-color: @light-gray-3;
+          }
+        }
+
+        &-checked {
+          background-color: @gray-1;
+          color: @white;
+          border-color: transparent;
+          box-shadow: -1px 0 0 0 @gray-1;
+
+          .ant-radio {
+            & + span {
+              color: @white;
+            }
+          }
+
+          &:not(:first-child) {
+            &::before {
+              background-color: @gray-1;
+            }
+          }
+        }
+      }
+    }
+
+    &.light {
+      .rtc-radio {
+        border-color: transparent;
+      }
+    }
+  }
+}
