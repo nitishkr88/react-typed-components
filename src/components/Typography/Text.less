@@ -1,0 +1,67 @@
+@import (reference) '../../styles/main.less';
+
+.rtc.rtc-text {
+  // Theme
+  &[data-theme='light'] {
+    &[data-type='info'] {
+      color: @label-info-font-color;
+    }
+
+    &[data-type='primary'] {
+      color: @label-primary-font-color;
+    }
+
+    &[data-type='secondary'] {
+      color: @label-secondary-font-color;
+    }
+  }
+
+  &[data-theme='dark'] {
+    &[data-type='info'] {
+      color: @label-info-dark-font-color;
+    }
+
+    &[data-type='primary'] {
+      color: @white;
+    }
+
+    &[data-type='secondary'] {
+      color: @label-info-font-color;
+    }
+  }
+
+  // Type
+  &[data-type='error'] {
+    color: @red-1;
+  }
+
+  &[data-type='warning'] {
+    color: @yellow-1;
+  }
+
+  &[data-type='success'] {
+    color: @green-1;
+  }
+
+  // Size
+  &[data-size='small'] {
+    font-weight: @title-h4-font-weight;
+    font-size: @title-h4-font-size;
+    line-height: @title-h4-line-height;
+  }
+
+  &[data-size='medium'] {
+    font-weight: @label-font-weight;
+    font-size: @label-font-size;
+    line-height: @label-line-height;
+  }
+
+  // Display
+  &[data-display='inline'] {
+    display: inline;
+  }
+
+  &[data-display='block'] {
+    display: block;
+  }
+}

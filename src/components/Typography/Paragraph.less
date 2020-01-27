@@ -1,0 +1,35 @@
+@import (reference) '../../styles/main.less';
+
+.rtc.rtc-paragraph {
+  font-size: @paragraph-font-size;
+  font-weight: @paragraph-font-weight;
+
+  &[data-type="primary"] {
+    color: @dark-gray-1;
+
+    &.dark-bg {
+      color: @paragraph-font-color-white;
+    }
+  }
+
+  &[data-type="secondary"] {
+    color: @gray-1;
+
+    &.dark-bg {
+      color: @light-gray-1;
+    }
+  }
+
+  &.single-line {
+    line-height: @paragraph-line-height;
+  }
+
+  // Adjusting line height if we are dealing with multiple line text title.
+  &.multi-line {
+    line-height: @paragraph-multi-line-height;
+  }
+
+  &.no-wrap {
+    white-space: nowrap;
+  }
+}
