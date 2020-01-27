@@ -1,0 +1,159 @@
+@import (reference) '../../styles/main.less';
+
+.rtc.rtc-tooltip-popup {
+  z-index: @tooltip-z-index;
+  // Overriding color for light theme.
+  &.light {
+    // Overriding antd tooltip body popup
+    .ant-tooltip-inner {
+      color: @black;
+      background-color: @white;
+      border-color: transparent;
+      opacity: 1;
+      box-shadow:
+        0 0 0 1px rgba(0, 0, 0, 0.05),
+        0 9px 9px 0 rgba(0, 0, 0, 0.02),
+        0 3px 3px 0 rgba(0, 0, 0, 0.02),
+        0 1px 1px 0 rgba(0, 0, 0, 0.02);
+    }
+
+    .ant-tooltip-arrow {
+      border-color: transparent;
+      opacity: 1;
+
+      &::before,
+      &::after {
+        content: '';
+        display: block;
+        left: 100%;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-color: transparent;
+        position: absolute;
+      }
+
+      &::before {
+        border-width: 6px;
+      }
+
+      &::after {
+        border-width: 5px;
+        top: -5px;
+        left: -5px;
+      }
+    }
+
+    // override antd tooltip arrow
+    &.ant-tooltip-placement-top .ant-tooltip-arrow,
+    &.ant-tooltip-placement-topLeft .ant-tooltip-arrow,
+    &.ant-tooltip-placement-topRight .ant-tooltip-arrow {
+      border-top-color: transparent;
+
+      &::before {
+        border-top-color: @light-gray-2;
+        top: -5px;
+        left: -6px;
+      }
+
+      &::after {
+        border-top-color: @white;
+      }
+    }
+
+    // override antd tooltip arrow
+    &.ant-tooltip-placement-right .ant-tooltip-arrow,
+    &.ant-tooltip-placement-rightTop .ant-tooltip-arrow,
+    &.ant-tooltip-placement-rightBottom .ant-tooltip-arrow {
+      &::before {
+        border-right-color: @light-gray-2;
+        top: -6px;
+        left: -7px;
+      }
+
+      &::after {
+        border-right-color: @white;
+      }
+    }
+
+    // override antd tooltip arrow
+    &.ant-tooltip-placement-bottom .ant-tooltip-arrow,
+    &.ant-tooltip-placement-bottomRight .ant-tooltip-arrow,
+    &.ant-tooltip-placement-bottomLeft .ant-tooltip-arrow {
+      &::before {
+        border-bottom-color: @light-gray-2;
+        top: -7px;
+        left: -6px;
+      }
+
+      &::after {
+        border-bottom-color: @white;
+      }
+    }
+
+    // override antd tooltip arrow
+    &.ant-tooltip-placement-left .ant-tooltip-arrow,
+    &.ant-tooltip-placement-leftTop .ant-tooltip-arrow,
+    &.ant-tooltip-placement-leftBottom .ant-tooltip-arrow {
+      &::before {
+        border-left-color: @light-gray-2;
+        top: -6px;
+        left: -5px;
+      }
+
+      &::after {
+        border-left-color: @white;
+      }
+    }
+  }
+
+  &.mini {
+    // Overriding antd
+    .ant-tooltip-inner {
+      padding: 15px;
+      line-height: 10px;
+    }
+  }
+  // Overriding antd tooltip body popup
+  .ant-tooltip-inner {
+    .paragraph-white-font();
+
+    padding: 15px 20px;
+    background-color: @black;
+    opacity: 0.8;
+    box-shadow: none;
+    max-width: none;
+  }
+
+  .ant-tooltip-arrow {
+    opacity: 0.8;
+  }
+
+  // override antd tooltip arrow
+  &.ant-tooltip-placement-right .ant-tooltip-arrow,
+  &.ant-tooltip-placement-rightTop .ant-tooltip-arrow,
+  &.ant-tooltip-placement-rightBottom .ant-tooltip-arrow {
+    border-right-color: @black;
+  }
+
+  // override antd tooltip arrow
+  &.ant-tooltip-placement-top .ant-tooltip-arrow,
+  &.ant-tooltip-placement-topLeft .ant-tooltip-arrow,
+  &.ant-tooltip-placement-topRight .ant-tooltip-arrow {
+    border-top-color: @black;
+  }
+
+  // override antd tooltip arrow
+  &.ant-tooltip-placement-bottom .ant-tooltip-arrow,
+  &.ant-tooltip-placement-bottomRight .ant-tooltip-arrow,
+  &.ant-tooltip-placement-bottomLeft .ant-tooltip-arrow {
+    border-bottom-color: @black;
+  }
+
+  // override antd tooltip arrow
+  &.ant-tooltip-placement-left .ant-tooltip-arrow,
+  &.ant-tooltip-placement-leftTop .ant-tooltip-arrow,
+  &.ant-tooltip-placement-leftBottom .ant-tooltip-arrow {
+    border-left-color: @black;
+  }
+}

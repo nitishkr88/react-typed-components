@@ -1,0 +1,94 @@
+@import (reference) '../../styles/main.less';
+
+.rtc.rtc-modal {
+  &.ant-modal-wrap {
+    &.rtc-confirm-modal {
+      display: flex;
+      align-items: center;
+
+      // Align content
+      // TODO: Remove this once multiline deprecation content is removed.
+      .mx-align(@alignment) {
+        .ant-modal {
+          .ant-modal-content {
+            .ant-modal-body {
+              .rtc-modal-body {
+                &,
+                .single-line,
+                .multi-line {
+                  text-align: @alignment;
+                }
+              }
+            }
+          }
+        }
+      }
+
+      &.align-left {
+        .mx-align(left);
+      }
+
+      &.align-center {
+        .mx-align(center);
+      }
+
+      &.align-right {
+        .mx-align(right);
+      }
+
+      // Overriding inline styles with !important
+      .ant-modal {
+        transform-origin: 50% 50% !important;
+        transition: transform 400ms cubic-bezier(0.285, 0.005, 0.07, 1) 0ms;
+
+        .ant-modal-content {
+          .ant-modal-header {
+            padding: 0;
+            height: auto;
+            box-shadow: none;
+
+            .confirm-modal-title {
+              padding-top: 30px;
+
+              &:empty {
+                padding-top: 0;
+                height: 10px;
+              }
+            }
+          }
+
+          .ant-modal-body {
+            .rtc-modal-body {
+              padding: 20px 30px;
+
+              .single-line {
+                text-align: center;
+              }
+
+              .multi-line {
+                text-align: left;
+              }
+            }
+
+            .rtc-modal-footer {
+              box-shadow: none;
+              text-align: center;
+              height: auto;
+              padding-top: 10px;
+              padding-bottom: 30px;
+            }
+          }
+        }
+      }
+
+      //Overriding Ant zoom in animation
+      // .zoom-enter {
+      //   animation: zoom-in 400ms ease 1;
+      // }
+
+      // .zoom-leave {
+      //   animation: zoom-out 400ms ease 1;
+      // }
+    }
+  }
+}

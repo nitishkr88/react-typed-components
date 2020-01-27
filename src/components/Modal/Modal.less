@@ -1,0 +1,316 @@
+@import (reference) '../../styles/main.less';
+
+.rtc.rtc-modal {
+
+  @default-padding: 20px;
+  @header-height: 50px;
+  @fullpageheader-height: 60px;
+  @modal-border-radius: 4px;
+  @modal-title-line-height: 10px;
+
+  &.ant-modal-wrap {
+    height: 100%;
+    width: 100%;
+    z-index: @modal-z-index;
+    transition: transform 400ms cubic-bezier(0.285, 0.005, 0.07, 1) 0ms;
+
+    .ant-modal {
+      //Overriding AntD transform since it has different animation
+      transform: scale(1);
+      padding-bottom: 0;
+      margin: 0 auto;
+      top: 0;
+
+      .ant-modal-content {
+        margin: 0 auto;
+        background-color: transparent;
+        border-radius: @modal-border-radius;
+        box-shadow: none;
+
+        //Overriding AntD close style
+        .ant-modal-close {
+          display: none;
+        }
+
+        .ant-modal-header {
+          //Help and close icon on the header
+          border-bottom: none;
+          box-shadow: inset 0 -1px 0 0 @light-gray-3;
+          height: @header-height;
+          padding: @default-padding;
+
+          .ant-modal-title {
+            text-align: center;
+            .font-styling(@default-font-size; @font-weight-medium; @modal-title-line-height; @dark-gray-1);
+
+            .icons-container {
+              position: absolute;
+              top: 18px;
+              right: 20px;
+
+              .icon-holder {
+                display: inline-block;
+                position: relative;
+                padding-left: 1px;
+                vertical-align: middle;
+
+                .rtc-icon {
+                  position: relative;
+                  cursor: pointer;
+                  margin: 0 15px;
+                  vertical-align: top;
+                  color: @gray-2;
+
+                  &:hover {
+                    color: @dark-gray-3;
+                  }
+                }
+
+                // Need CSS refactoring so this override won't be necessary
+                .modal-close-icon {
+                  margin-right: 0;
+                }
+
+                // Divider between the icons
+                &::after {
+                  content: "";
+                  background-color: @light-gray-2;
+                  height: 16px;
+                  width: 1px;
+                  position: absolute;
+                  top: -2px;
+                }
+
+                &:last-child {
+                  &::after {
+                    width: 0;
+                  }
+                }
+              }
+            }
+          }
+        }
+
+        .ant-modal-body {
+          padding: 0;
+          color: @dark-gray-1;
+          font-size: @default-font-size;
+
+          .rtc-modal-body {
+            background: @white;
+
+            // Hide the header border when an alert is visible
+            > .rtc-alert:first-child {
+              @border-size: 1px;
+
+              &::before {
+                content: '';
+                display: block;
+                position: absolute;
+                border-top: @border-size solid @white;
+                width: 100%;
+                left: 0;
+                top: @header-height - @border-size;
+              }
+            }
+          }
+
+          .rtc-modal-footer {
+            height: 72px;
+            background: @white;
+            box-shadow: inset 0 1px 0 0 @light-gray-3;
+            border-radius: 0 0 @modal-border-radius @modal-border-radius;
+            padding: @default-padding;
+            text-align: right;
+
+            * + * {
+              margin-left: 10px;
+            }
+          }
+        }
+
+        .ant-modal-footer {
+          border: none;
+        }
+      }
+    }
+
+    //default modal
+    &.default {
+      display: flex;
+      align-items: center;
+
+      // Truncation for verrrry long text
+      .ant-modal {
+        .ant-modal-header {
+          @top-padding: @title-h3-multiline-height - 1;
+
+          padding: @top-padding 20px 0;
+
+          .ant-modal-title {
+            h3 {
+              .text-overflow-ellipsis();
+              // Use multline so y's and'js etc don't get cut off
+              line-height: @title-h3-multiline-height;
+            }
+
+            .icons-container {
+              background-color: @white;
+              height: @title-h3-multiline-height;
+              top: 20px;
+
+              &::before {
+                @width: 10px;
+
+                content: '';
+                display: block;
+                position: absolute;
+                width: @width;
+                height: 100%;
+                left: -@width;
+                background: linear-gradient(to right, fade(@white, 0%) 0%, fade(@white, 100%) 100%);
+              }
+
+              .icon-holder {
+                vertical-align: top;
+              }
+            }
+          }
+        }
+      }
+
+      .ant-modal-body {
+        // Setting the maximum height to 70% of the viewport
+        // for the modal body so that the modal wont expand
+        // out of the window.
+        .rtc-modal-body {
+          max-height: 70vh;
+          overflow: auto;
+        }
+      }
+
+      // Adding this since the animations are conflicting
+      // with each other
+      &:not(.confirm) {
+        //Overriding Ant zoom in animation
+        .zoom-enter.zoom-enter-active,
+        .zoom-appear.zoom-appear-active {
+          animation: popup-in 400ms ease 1;
+        }
+
+        .zoom-leave.zoom-leave-active {
+          animation: popup-out 400ms ease 1;
+        }
+      }
+    }
+
+    //Full page modal
+    &.full-page {
+      //Overriding antd (display table)
+      display: block;
+      overflow: hidden;
+
+      .ant-modal {
+        //Overriding default width for full page popups
+        width: 100% !important;
+        height: 100%;
+        background: @white;
+
+        .ant-modal-content {
+          height: 100%;
+
+          .ant-modal-header {
+            border-radius: 0;
+            border: none;
+            position: relative;
+            height: @fullpageheader-height;
+            padding: 20px;
+
+            .ant-modal-title {
+              display: block;
+
+              .modal-title-container {
+                display: flex;
+
+                h3 {
+                  flex-grow: 1;
+                  text-align: left;
+                  color: @dark-gray-1;
+                  font-weight: @font-weight-semi-bold;
+                  line-height: 18px;
+                }
+
+                .icons-container {
+                  position: relative;
+                  top: auto;
+                  right: auto;
+
+                  .icon-holder {
+                    top: 3px;
+
+                    &::after {
+                      top: -1px;
+                    }
+
+                    // .rtc-icon {
+                    //   height: 12px;
+                    // }
+
+                    .modal-close-icon {
+                      top: 1px;
+                      margin-right: 0;
+                    }
+                  }
+                }
+              }
+            }
+          }
+
+          .ant-modal-body {
+            height: calc(~"100vh - 60px");
+            overflow: auto;
+
+            > div {
+              margin: 0 auto;
+            }
+          }
+
+          .ant-modal-footer {
+            display: none;
+          }
+        }
+      }
+
+      //Overriding Ant zoom in animation
+      .zoom-enter.zoom-enter-active,
+      .zoom-appear.zoom-appear-active {
+        opacity: 1;
+        animation: swipe-up 0.5s ease both;
+      }
+
+      .zoom-leave.zoom-leave-active {
+        opacity: 1;
+        animation: swipe-down 0.5s ease both;
+      }
+    }
+  }
+}
+
+// @override
+// Ant modal mask to have higer Z-index
+.ant-modal {
+  &-mask {
+    z-index: @modal-z-index;
+  }
+}
+
+//Overriding AntD's media query
+@media (max-width: 768px) {
+  .rtc-modal {
+    .ant-modal {
+      width: auto !important;
+      max-width: 80%;
+      margin: 0 auto;
+    }
+  }
+}
