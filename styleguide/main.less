@@ -1,0 +1,28 @@
+@import '../src/styles/variables.less';
+@import '../src/styles/mixins.less';
+
+.rtc-dark-example {
+  background: @dark-gray-1;
+  padding: 40px;
+  border-radius: 4px;
+}
+
+.rtc-example {
+  &-with-border {
+    border: 1px solid @light-gray-2;
+    border-radius: 4px;
+  }
+
+  &-borderless-content {
+    background: @light-gray-3;
+    padding: 40px;
+    border-radius: 4px;
+  }
+
+}
+
+.rtc-main {
+  @sidebar-width: 240px;
+  @common-spacing: 60px;
+  font-size: @default-font-size;
+}
