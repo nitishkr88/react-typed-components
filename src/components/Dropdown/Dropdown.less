@@ -1,0 +1,122 @@
+@import (reference) '../../styles/main.less';
+
+.rtc.rtc-dropdown {
+  cursor: pointer;
+  position: relative;
+
+  // Trigger menu
+  &.ant-dropdown-trigger {
+    > .rtc-dropdown-title {
+      position: relative;
+      display: inline-block;
+      padding-right: 20px;
+      width: auto;
+      max-width: 100%;
+      .font-styling(@default-font-size, @font-weight-medium, 1.4, @blue-1);
+
+      &.hide-down-icon {
+        padding-right: 0;
+      }
+
+      &:hover {
+        > .title {
+          text-decoration: underline;
+        }
+      }
+
+      // Chevron icon
+      > svg.chevron-down-icon {
+        position: absolute;
+        top: 1px;
+        right: 0;
+      }
+    }
+  }
+}
+
+.rtc.rtc-actions-menu {
+  padding: 0;
+  background-color: @white;
+  border: 1px solid @light-gray-1;
+  border-radius: 4px;
+  box-shadow: 0 9px 9px fade(@black, 2), 0 3px 3px fade(@black, 2),
+    0 1px 1px fade(@black, 2);
+  margin-left: 5px;
+  cursor: pointer;
+  // override flex from menu
+  display: inline-block !important;
+
+  .ant-dropdown-menu-item {
+    padding: 11px 10px;
+    .font-styling(@default-font-size, @font-weight-regular, 10px, @dark-gray-1);
+
+    transition: none;
+
+    &.ant-dropdown-menu-item-selected,
+    &.ant-dropdown-menu-item-active {
+      background-color: @blue-1;
+      color: @white;
+      box-shadow: -1px 0 0 0 @blue-1, 1px 0 0 0 @blue-1;
+    }
+
+    &:first-child {
+      &.ant-dropdown-menu-item-selected,
+      &.ant-dropdown-menu-item-active {
+        border-radius: 4px 4px 0 0;
+        box-shadow: -1px -1px 0 0 @blue-1, -1px 1px 0 0 @blue-1,
+          1px 1px 0 0 @blue-1, 1px -1px 0 0 @blue-1;
+
+        &::before {
+          border-width: 4px;
+          right: 20px;
+        }
+
+        &::after {
+          border-width: 2px;
+          right: 22px;
+        }
+      }
+
+      // TODO: Have to create and position the Caret based on the dropdown Menus placement
+      // For now styled it only for bottom. Caret is created with CSS shape.
+      &::before,
+      &::after {
+        content: '';
+        width: 0;
+        height: 0;
+        border-left: 5px solid transparent;
+        border-right: 5px solid transparent;
+        border-bottom: 5px solid @light-gray-1;
+        position: absolute;
+      }
+
+      &::before {
+        top: -5px;
+        right: 19px;
+      }
+
+      &::after {
+        top: -3px;
+        right: 21px;
+        border-bottom-color: @white;
+        border-width: 3px;
+      }
+    }
+
+    &:last-child {
+      &.ant-dropdown-menu-item-selected,
+      &.ant-dropdown-menu-item-active {
+        border-radius: 0 0 4px 4px;
+        box-shadow: -1px 0 0 0 @blue-1, 1px 0 0 0 @blue-1, -1px 1px 0 0 @blue-1,
+          1px 1px 0 0 @blue-1;
+      }
+    }
+  }
+}
+
+// Dropdown specific CSS
+// Note: Unfortunately not able to use className with existing Ant component.
+// Will need to drop Antd to gain this control.
+div.ant-dropdown {
+  z-index: @dropdown-z-index;
+}
