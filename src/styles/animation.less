@@ -1,0 +1,110 @@
+// CSS animation mixins.
+//
+
+// Icon Animations
+.wiggle(@wiggle-angle:6deg) {
+  0% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(@wiggle-angle);
+  }
+  50% {
+    transform: rotate(-@wiggle-angle);
+  }
+  75% {
+    transform: rotate(@wiggle-angle / 1.65);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes wiggle {
+  .wiggle;
+}
+
+// Fade in Popup
+@keyframes popup-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 30%, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+// Fade out Popup
+@keyframes popup-out {
+  from {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    opacity: 0;
+    transform: translate3d(0, 30%, 0);
+  }
+}
+
+// Zoom in Popup
+@keyframes zoom-in {
+  from {
+    transform: scale(0);
+    opacity: 1;
+  }
+
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+// Zoom Out Popup
+@keyframes zoom-out {
+  from {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  to {
+    transform: scale(0);
+    opacity: 1;
+  }
+}
+
+// Full page modal swipe in
+@keyframes swipe-up {
+  0% {
+    transform: translate(0, 100%);
+  }
+
+  100% {
+    transform: translate(0, 0%);
+  }
+}
+
+// Full page modal swipe down
+@keyframes swipe-down {
+  0% {
+    transform: translate(0, 0%);
+  }
+
+  100% {
+    transform: translate(0, 100%);
+  }
+}
+
+@tab-animation-timing-function: cubic-bezier(0.645, 0.045, 0.355, 1);
+
+// Checkboxes animation
+@checkbox-anim-ease-in-circ: cubic-bezier(0.6, 0.04, 0.98, 0.335);
+@checkbox-anim-ease-out-cubic: cubic-bezier(0.215, 0.61, 0.355, 1);
+@checkbox-anim-bounce: cubic-bezier(0.5, -0.5, 0.5, 1.5);
+@checkbox-anim-duration: 200ms;
+
+// Menu
+@menu-anim-ease: cubic-bezier(0.27, 0.01, 0.45, 0.96);
