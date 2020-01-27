@@ -1,0 +1,236 @@
+@import (reference) '../../styles/main.less';
+
+span.rtc.rtc-input > input,
+input.rtc.rtc-input {
+  position: relative;
+  display: inline-block;
+  cursor: text;
+  background-color: @white;
+  background-image: none;
+  border-radius: 4px;
+  transition: none;
+  font-size: @default-font-size;
+  font-weight: @label-font-weight;
+  line-height: @label-line-height;
+  color: @label-primary-font-color;
+  border: 1px solid @light-gray-1;
+  .placeholder(@gray-3);
+
+  width: 100%;
+  padding: 5px 10px;
+  height: 32px;
+
+  // Disabled
+  &.ant-input-disabled {
+    background: @light-gray-3;
+    color: @gray-3;
+    cursor: not-allowed;
+
+    & + .ant-input-group-addon {
+      background: @light-gray-3;
+    }
+  }
+}
+
+// Input
+input.rtc.rtc-input {
+  &.has-error {
+    border-color: @dark-red-3;
+
+    &:first-of-type + span {
+      &.ant-input-group-addon {
+        border-color: @dark-red-3;
+      }
+    }
+
+    &:focus {
+      border-color: @dark-red-3;
+    }
+  }
+
+  &:focus {
+    border: 1px solid @blue-1;
+    outline: none;
+    box-shadow: none;
+  }
+
+  &.-borderless {
+    border-color: transparent;
+
+    &.has-error {
+      border-color: @dark-red-3;
+
+      &:focus {
+        border-color: @dark-red-3;
+      }
+    }
+
+    &:focus {
+      border-color: @blue-1;
+    }
+
+    & + .ant-input-group-addon {
+      border-color: transparent;
+    }
+  }
+}
+
+// Dark theme
+input.rtc.rtc-input.dark,
+span.rtc.rtc-input.dark > input {
+  background-color: @dark-gray-2;
+  color: @white;
+  border: none;
+}
+
+textarea.rtc.rtc-input {
+  &.has-error {
+    border-color: @dark-red-3;
+  }
+}
+
+// Wrapped Input
+span.rtc.rtc-input {
+  .border-fix(@b-color: @light-gray-1) {
+    // Note: Why Ant why....
+    &.ant-input-affix-wrapper {
+      &:hover .ant-input:not(.ant-input-disabled):not(:focus) {
+        border-color: @b-color;
+      }
+    }
+
+    &.-borderless {
+      &:not(.has-error) {
+        &:hover .ant-input:not(.ant-input-disabled):not(:focus) {
+          border-color: transparent;
+        }
+      }
+    }
+  }
+
+  &.-borderless {
+    border-color: transparent;
+
+    input.ant-input {
+      border-color: transparent;
+    }
+
+    & + .ant-input-group-addon {
+      border-color: transparent;
+    }
+  }
+
+  &.has-error {
+    .border-fix(@dark-red-3);
+
+    > input {
+      // Even with borderless style, we want error border to show so make
+      // this style more specific
+      &.ant-input {
+        border-color: @dark-red-3;
+
+        &:focus {
+          border-color: @dark-red-3;
+        }
+      }
+    }
+
+    &:first-of-type + span {
+      &.ant-input-group-addon {
+        border-color: @dark-red-3;
+        border-left: none;
+      }
+    }
+  }
+
+  input.ant-input {
+    &:focus {
+      border-color: @blue-1;
+      outline: none;
+      box-shadow: none;
+    }
+  }
+
+  .border-fix();
+}
+
+// Addon group
+.ant-input-group-wrapper {
+  .rtc-input {
+    border-right: none;
+  }
+
+  .ant-input-group > .ant-input,
+  // When addonAfter and suffix props are both defined
+  .ant-input-group > .ant-input-affix-wrapper > .ant-input,
+  &.ant-input-group-addon {
+    &:first-child {
+      border-bottom-right-radius: 0;
+      border-top-right-radius: 0;
+      border-right: none;
+
+      &:focus {
+        border-right: 1px solid @blue-1;
+      }
+    }
+  }
+
+  .has-error {
+    // When addonAfter and suffix props are both defined
+    &.rtc-input.ant-input-affix-wrapper > .ant-input {
+      &:focus {
+        border-right: none;
+      }
+    }
+  }
+
+  // Ant group addon override
+  .ant-input-group-addon {
+    background-color: @white;
+    .font-styling(
+      @label-font-size, @label-font-weight, @label-line-height,
+      @label-info-font-color
+    );
+
+    border-color: @light-gray-1;
+    border-left: none;
+    padding-right: 10px;
+    padding-left: 10px;
+    transition: none;
+
+    // addon divider
+    &::after {
+      content: '';
+      display: inline-block;
+      height: 20px;
+      width: 1px;
+      background-color: @light-gray-2;
+      position: absolute;
+      left: 0;
+      top: 5px;
+    }
+  }
+}
+
+// prefix/suffix icon
+span.rtc.rtc-input.ant-input-affix-wrapper {
+  .ant-input:not(:first-child) {
+    padding-left: 30px;
+  }
+
+  span {
+    // prefix/suffix icon
+    &.ant-input-suffix,
+    &.ant-input-prefix {
+      color: @gray-2;
+    }
+
+    &.ant-input-suffix {
+      right: 10px;
+    }
+
+    &.ant-input-prefix {
+      left: 10px;
+    }
+  }
+}
