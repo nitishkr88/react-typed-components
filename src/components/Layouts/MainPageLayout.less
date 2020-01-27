@@ -1,0 +1,51 @@
+@import (reference) '../../styles/main.less';
+
+.rtc.rtc-main-page-layout {
+  @panel-width: 240px;
+
+  position: relative;
+  overflow: hidden;
+
+  &[data-show-left-panel='true'] {
+    > .body-wrapper {
+      > .left-panel + .body {
+        transform: translate3d(@panel-width, 0, 0);
+        max-width: calc(100% - @panel-width);
+      }
+    }
+  }
+
+  > .header {
+    background-color: @dark-gray-1;
+  }
+
+  > .body-wrapper {
+    position: relative;
+
+    > .left-panel {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: @panel-width;
+      background-color: @dark-gray-1;
+    }
+
+    > .body {
+      position: relative;
+      background: @white;
+      z-index: 1;
+      transition: transform 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
+      overflow: auto;
+    }
+  }
+
+  &[data-full-page='true'] {
+    height: 100%;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    z-index: 5;
+  }
+}
