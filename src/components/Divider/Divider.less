@@ -1,0 +1,29 @@
+@import (reference) '../../styles/main.less';
+
+.rtc.rtc-divider {
+  // Types
+  // ------
+  &[data-type="full-width"] {
+    width: 100%;
+  }
+
+  &[data-type="short"] {
+    width: 32px;
+  }
+
+  // Themes
+  // ------
+  &[data-theme="light"] {
+    &[data-type="full-width"] {
+      border-top: 1px solid @light-gray-3;
+    }
+
+    &[data-type="short"] {
+      border-top: 1px solid @light-gray-2;
+    }
+  }
+
+  &[data-theme="dark"] {
+    border-top: 1px solid fade(@white, 10%);
+  }
+}

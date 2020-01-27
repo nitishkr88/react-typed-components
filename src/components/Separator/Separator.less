@@ -1,0 +1,26 @@
+@import (reference) '../../styles/main.less';
+
+.rtc-separator {
+  display: inline-flex;
+  align-items: center;
+
+  > .separator {
+    color: @gray-3;
+
+    &.item-spacing-10px {
+      margin: 0 10px;
+    }
+
+    &.item-spacing-15px {
+      margin: 0 15px;
+    }
+
+    &.item-spacing-20px {
+      margin: 0 20px;
+    }
+  }
+
+  > svg.rtc-icon {
+    fill: @gray-3;
+  }
+}
