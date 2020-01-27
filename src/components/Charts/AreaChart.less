@@ -1,0 +1,10 @@
+@import (reference) '../../styles/main.less';
+
+.rtc.rtc-area-chart {
+  .tag-font-styling(@tag-font-color-dark, @tag-font-weight);
+
+  // Overriding reacharts style.
+  .recharts-curve.recharts-area-area {
+    fill-opacity: 0.05;
+  }
+}

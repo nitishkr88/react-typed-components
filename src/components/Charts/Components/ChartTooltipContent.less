@@ -1,0 +1,36 @@
+@import (reference) '../../../styles/main.less';
+
+.rtc.rtc-chart-tooltip {
+  .font-styling(
+    @tag-font-size,
+    @tag-font-weight,
+    @tag-font-size,
+    @tag-font-color-dark
+  );
+
+  padding: 15px;
+  background-color: @white;
+  border: 1px solid @light-gray-3;
+  border-radius: 4px;
+  box-shadow: 0 9px 9px 0 fade(@white, 2%), 0 3px 3px 0 fade(@white, 2%),
+    0 1px 1px 0 fade(@white, 2%);
+
+  .tooltip-list-item {
+    &-color {
+      height: 6px;
+      width: 6px;
+      border-radius: 6px;
+    }
+
+    &-name {
+      max-width: 400px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    &-value {
+      color: @dark-gray-1;
+      flex-shrink: 0;
+    }
+  }
+}

@@ -1,0 +1,21 @@
+@import (reference) '../../../styles/main.less';
+
+.rtc.rtc-chart-legend-content {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+
+  > * {
+    margin: 5px 10px;
+  }
+
+  &,
+  .rtc.rtc-checkbox .svg-n-checkbox + span {
+    .font-styling(
+      @tag-font-size,
+      @tag-font-weight,
+      @tag-line-height,
+      @tag-font-color-dark
+    );
+  }
+}

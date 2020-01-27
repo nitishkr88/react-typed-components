@@ -1,0 +1,18 @@
+@import (reference) '../../../styles/main.less';
+
+.rtc-chart-cartesian-bar {
+  .recharts-bar-labels {
+    // The bar label text
+    text {
+      .font-styling(
+        @tag-font-size,
+        @tag-font-weight,
+        @tag-line-height,
+        @tag-font-color-info
+      );
+
+      fill: @tag-font-color-info;
+      stroke: none;
+    }
+  }
+}

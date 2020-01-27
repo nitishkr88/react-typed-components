@@ -1,0 +1,13 @@
+@import (reference) '../../styles/main.less';
+
+.rtc.rtc-bar-chart {
+  .tag-font-styling(@tag-font-color-dark, @tag-font-weight);
+
+  svg {
+    // The svg with inline causing chart to take up additional height
+    // Changing to block seemed to fix it.
+    &.recharts-surface {
+      display: block;
+    }
+  }
+}
