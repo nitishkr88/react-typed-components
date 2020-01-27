@@ -1,0 +1,76 @@
+@import (reference) '../../styles/main.less';
+
+.rtc.rtc-nav-bar {
+  @padding: 20px;
+
+  width: 100%;
+  height: @navbar-min-height;
+  flex-shrink: 0;
+  font-size: @paragraph-font-size;
+  line-height: @paragraph-line-height;
+  color: @gray-3;
+  background-color: @dark-gray-1;
+
+  > * {
+    height: 100%;
+  }
+
+  .left,
+  .right {
+    flex-basis: 100%;
+  }
+
+  .left {
+    margin-left: @padding;
+  }
+
+  .right {
+    margin-right: @padding;
+  }
+
+  .logo-icon {
+    svg {
+      fill: @gray-2;
+      transition: fill 0.3s ease;
+    }
+
+    a {
+      color: @gray-2;
+      padding: @padding / 2;
+      margin-left: -@padding / 2;
+      margin-right: -@padding / 2;
+
+      &:hover,
+      &:focus,
+      &:active {
+        color: @white;
+      }
+    }
+  }
+
+  .horizontal-menu a {
+    padding: @padding / 2;
+    margin-left: -@padding / 2;
+    margin-right: -@padding / 2;
+  }
+
+  .app-title {
+    color: @white;
+    font-weight: @font-weight-semi-bold;
+    white-space: nowrap;
+  }
+
+  .nav-item a {
+    color: @gray-3;
+    font-weight: @font-weight-medium;
+    text-decoration: none;
+
+    &:hover,
+    &:focus,
+    &:active,
+    &.active {
+      color: @white;
+      text-decoration: none;
+    }
+  }
+}

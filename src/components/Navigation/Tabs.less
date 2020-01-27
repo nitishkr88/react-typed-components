@@ -1,0 +1,210 @@
+@import (reference) '../../styles/main.less';
+
+.rtc-tabs {
+  // Background mixin for line and under active tab
+  .tab-underline(@line-color) {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 2px;
+    background-color: @line-color;
+  }
+
+  &.ant-tabs {
+    // To override AntD which adds inline style
+    .ant-tabs-ink-bar {
+      // display: none !important;
+    }
+
+    .ant-tabs-nav-wrap {
+      overflow: hidden;
+      margin-bottom: -1px;
+    }
+
+    .ant-tabs-nav {
+      .ant-tabs-tab {
+        .font-styling(@default-font-size, @font-weight-medium, 10px, @gray-1);
+        &::before {
+          top: unset;
+        }
+      }
+    }
+
+    .ant-tabs-content {
+      padding: 20px;
+      font-size: @default-font-size;
+    }
+
+    &.margined-content {
+      > .ant-tabs-content {
+        margin-top: 80px;
+      }
+    }
+
+    // Center Content
+    &.center-content {
+      display: flex;
+      flex-direction: column;
+
+      > .ant-tabs-bar {
+        justify-content: center;
+        display: flex;
+      }
+
+      > .ant-tabs-content {
+        justify-content: center;
+        align-items: center;
+        display: flex;
+        flex-grow: 1;
+
+        > .ant-tabs-tabpane {
+          width: auto;
+        }
+      }
+    }
+
+    // Tabs style
+    &.default {
+      border-radius: 4px;
+
+      > .ant-tabs-bar {
+        .ant-tabs-nav {
+          padding-left: 5px;
+
+          .ant-tabs-tab {
+            padding: 0;
+            margin: 0 15px;
+            height: 50px;
+            line-height: 50px;
+            transition: none;
+
+            &:hover {
+              color: @blue-1;
+
+              &::after {
+                z-index: 9;
+              }
+            }
+
+            &-active {
+              color: @dark-gray-1;
+
+              &::before {
+                // .tab-underline(@blue-1);
+
+                z-index: 10;
+              }
+            }
+          }
+        }
+      }
+
+      > .ant-tabs-bar {
+        border-bottom: 1px solid @light-gray-3;
+        background-color: @white;
+        margin-bottom: 0;
+
+        .ant-tabs-nav-container {
+          overflow: visible;
+        }
+      }
+
+      > .ant-tabs-content {
+        background-color: @white;
+      }
+    }
+
+    // View Switcher style
+    &.view-switcher {
+      .ant-tabs-ink-bar {
+        display: none !important;
+      }
+      > .ant-tabs-bar {
+        border: none;
+        margin-bottom: 0;
+
+        .ant-tabs-nav-wrap {
+          margin-bottom: 0;
+
+          .ant-tabs-nav {
+            background-color: @white;
+            border-radius: 4px;
+
+            .ant-tabs-tab {
+              //Having minus margin to override ant default style
+              // margin: 0 -1px 0 0;
+              margin: 0;
+              border: 1px solid @light-gray-2;
+              box-shadow: inset -1px 0 0 0 @light-gray-3;
+              padding: 0 15px;
+              transition: none;
+              border-right-color: transparent;
+              border-left-color: transparent;
+              height: 32px;
+              line-height: 30px;
+
+              &:hover {
+                color: @blue-1;
+              }
+
+              &:last-child {
+                border-radius: 0 4px 4px 0;
+                border-right-color: @light-gray-2;
+              }
+
+              //AntD adds an extra div as the first child
+              //for the custom animated bar
+              &:nth-child(1) {
+                border-radius: 4px 0 0 4px;
+                border-left-color: @light-gray-2;
+              }
+
+              &.ant-tabs-tab-active {
+                position: relative;
+                background-color: @gray-1;
+                border: 1px solid @gray-1;
+                color: @white;
+                z-index: 1;
+                box-shadow: none;
+              }
+            }
+          }
+        }
+      }
+
+      > .ant-tabs-content {
+        padding-left: 0;
+      }
+
+      &.dark {
+        .ant-tabs-bar {
+          .ant-tabs-nav-wrap {
+            .ant-tabs-nav {
+              .ant-tabs-tab {
+                border-color: transparent;
+
+                &:last-child {
+                  border-right-color: transparent;
+                }
+
+                //AntD adds an extra div as the first child
+                //for the custom animated bar
+                &:nth-child(2) {
+                  border-left-color: transparent;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.no-flex > .ant-tabs-content > .ant-tabs-tabpane-inactive,
+.ant-tabs-no-animation > .ant-tabs-content > .ant-tabs-tabpane-inactive,
+.ant-tabs-vertical > .ant-tabs-content > .ant-tabs-tabpane-inactive {
+  display: none;
+}
