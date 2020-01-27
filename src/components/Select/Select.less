@@ -1,0 +1,510 @@
+@import (reference) '../../styles/main.less';
+
+.rtc-select-wrapper {
+  // Local Vars
+  @select-border-radius: 4px;
+  @select-height: 32px;
+
+  position: relative;
+  background-color: @white;
+  border-radius: 4px;
+
+  .rtc-select {
+    font-size: @default-font-size;
+    width: 100%;
+    z-index: 1;
+    cursor: pointer;
+
+    // Bottom two classes imported from Ant stylesheet
+    .ant-select-selection__placeholder,
+    .ant-select-search__field__placeholder {
+      .text-overflow-ellipsis();
+
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 9px;
+      color: @light-gray-1;
+      line-height: 20px;
+      height: 20px;
+      max-width: 100%;
+      margin-top: -10px;
+      text-align: left;
+    }
+
+    .ant-select-selection {
+      padding: 6px 25px 6px 10px;
+      font-size: @default-font-size;
+      background: transparent;
+      font-weight: @font-weight-medium;
+      border: 1px solid @light-gray-1;
+      color: @dark-gray-1;
+      box-shadow: none;
+      width: 100%;
+      height: @select-height;
+      box-sizing: border-box;
+      transition: none;
+
+      .ant-select-selection__rendered {
+        margin-left: 0;
+        margin-right: 0;
+        line-height: 18px;
+      }
+
+      &.ant-select-selection--multiple {
+        padding: 2px 9px;
+        min-height: @select-height;
+        height: auto;
+        visibility: visible;
+
+        .ant-select-selection__placeholder {
+          height: @select-height;
+          line-height: @select-height;
+          margin-top: -12px;
+        }
+
+        .ant-select-selection__rendered {
+          .ant-select-selection__choice {
+            background-color: @light-gray-3;
+            color: @dark-gray-1;
+            margin: 2px 5px 2px 0;
+            border-radius: 4px;
+            height: 22px;
+
+            .ant-select-selection__choice__content {
+              position: relative;
+              top: -1px;
+            }
+
+            // Delete Action
+            // TODO: On deleting one of the middle ones that the label to takes it place
+            // should slide in or fill in instead of 'jumping' in to fill the position
+            .ant-select-selection__choice__remove {
+              font-size: 9px;
+              height: 8px;
+              width: 8px;
+              right: 8px;
+              transform: scale(1);
+            }
+          }
+        }
+      }
+
+      .ant-select-arrow {
+        // display: none;
+      }
+
+      .secondary-text {
+        display: none;
+      }
+    }
+
+    &.ant-select-open {
+      z-index: 100;
+
+      .ant-select-selection {
+        border: 1px solid @blue-1;
+      }
+    }
+
+    &.ant-select-disabled {
+      &.ant-select-focused {
+        .ant-select-selection {
+          border: 1px solid @light-gray-1;
+        }
+      }
+    }
+  }
+
+  &.rtc-select-disabled {
+    background-color: @light-gray-3;
+
+    .ant-select-selection-selected-value {
+      color: @gray-3;
+    }
+
+    .ant-select-selection {
+      &.ant-select-selection--multiple {
+        .ant-select-selection__rendered {
+          .ant-select-selection__choice {
+            background-color: @white;
+            color: @gray-3;
+            cursor: not-allowed;
+          }
+
+          .ant-select-search__field {
+            cursor: not-allowed;
+          }
+        }
+      }
+    }
+  }
+
+  // show no border
+  &.borderless {
+    &.rtc-select-disabled {
+      > .rtc-select {
+        > .ant-select-selection {
+          background: @white;
+        }
+
+        // show blue border when open
+        &.ant-select-open {
+          > .ant-select-selection {
+            border: 1px solid @blue-1;
+          }
+        }
+      }
+
+      .rtc-icon {
+        color: @gray-3;
+      }
+    }
+
+    > .rtc-select {
+      > .ant-select-selection {
+        border: 1px solid @white;
+      }
+
+      // show blue border when open
+      &.ant-select-open {
+        > .ant-select-selection {
+          border: 1px solid @blue-1;
+        }
+      }
+    }
+  }
+
+  &.error {
+    > .rtc-select {
+      > .ant-select-selection {
+        border: 1px solid @dark-red-3;
+      }
+    }
+  }
+
+  // Tweek/Fix for select drop down issue on a modal
+  // Issue is - when the dropdown is open and the user scrolls inside
+  // the modal, the dropdown will stay in the same position since its
+  // placed by calculating the offset from window. Hence disabling the
+  // scroll by adding a mask.
+  // .select-mask {
+  //   display: none;
+  // }
+
+  // .ant-select-open + .select-mask {
+  //   position: fixed;
+  //   height: 100%;
+  //   width: 100%;
+  //   top: 0;
+  //   left: 0;
+  //   display: block;
+  //   background: fade(@white, 1%);
+  //   z-index: @app-select-mask-z-index;
+  // }
+
+  // .triangle-up-down-icon {
+  //   z-index: 1;
+  //   position: absolute;
+  //   right: 12px;
+  //   top: 12px;
+  //   color: @gray-1;
+  // }
+}
+
+// Dropdown container
+.rtc-select-options {
+  // Local Vars
+  @select-border-radius: 4px;
+  @select-height: 30px;
+
+  // Default
+  &.ant-select-dropdown {
+    overflow: visible;
+    transition: none;
+    animation: none;
+    border-radius: 0 0 @select-border-radius @select-border-radius;
+    box-shadow: none;
+    border: none;
+    z-index: @select-z-index;
+
+    &.slide-up-enter {
+      display: block;
+      opacity: 1;
+    }
+
+    &.slide-up-leave {
+      display: none;
+    }
+
+    //Tiny little line to cover the original selctbox border
+    &::before {
+      content: '';
+      position: absolute;
+      height: 5px;
+      width: 100%;
+      border-radius: 0;
+      background: @white;
+      border: 1px solid @blue-1;
+      left: 0;
+      border-top: none;
+      top: -9px;
+      bottom: auto;
+      box-sizing: border-box;
+    }
+
+    //Adding shadow to the inner div and removed from the parent
+    > div {
+      margin-top: -5px;
+      border-radius: 0 0 @select-border-radius @select-border-radius;
+      background-color: @white;
+      box-shadow: inset 1px 0 0 0 @light-gray-1, inset -1px 0 0 0 @light-gray-1,
+        inset 0 -1px 0 0 @light-gray-1, inset 0 1px 0 0 @blue-1,
+        0 2px 2px 0 fade(@light-gray-1, 20%);
+    }
+
+    //When dropdown is opened on the top
+    &.ant-select-dropdown-placement-topLeft {
+      > div {
+        margin-top: 0;
+        border-radius: 4px 4px 0 0;
+        box-shadow: inset 1px 0 0 0 @light-gray-1,
+          inset -1px 0 0 0 @light-gray-1, inset 0 1px 0 0 @light-gray-1,
+          inset 0 -1px 0 0 @blue-1, 0 -2px 2px 0 fade(@light-gray-1, 20%);
+      }
+
+      li {
+        &:first-child {
+          &.ant-select-dropdown-menu-item-active {
+            border-radius: @select-border-radius @select-border-radius 0 0;
+          }
+        }
+
+        &:last-child {
+          &.ant-select-dropdown-menu-item-active {
+            border-radius: 0;
+          }
+        }
+      }
+
+      // Select Input Cover
+      &::before {
+        border-bottom: none;
+        top: auto;
+        bottom: -5px;
+      }
+    }
+
+    .ant-select-dropdown-menu-item {
+      background: transparent;
+      padding: 10px;
+      color: @dark-gray-1;
+      font-size: @default-font-size;
+      line-height: 12px;
+      font-weight: @font-weight-regular;
+      text-transform: none;
+      cursor: pointer;
+      transition: none;
+      position: relative;
+
+      &::after {
+        content: '';
+        display: none;
+      }
+
+      &.multi-title {
+        padding: 0;
+
+        .primary-text {
+          .text-overflow-ellipsis();
+
+          padding: 10px 0 10px 10px;
+        }
+
+        .secondary-text {
+          color: @gray-3;
+          padding: 10px 10px 10px 0;
+        }
+      }
+
+      &:hover {
+        .secondary-text {
+          color: @white;
+        }
+      }
+    }
+
+    & .ant-select-dropdown-menu {
+      &-item-active {
+        background-color: transparent;
+        color: @dark-gray-1;
+        border-color: transparent;
+      }
+    }
+
+    // When checkbox exists
+    &.ant-select-dropdown--multiple {
+      .ant-select-dropdown-menu-item {
+        padding-left: 28px; // Padding to contain checkbox with 10px spacing
+        position: relative;
+
+        // Checkbox
+        &::before {
+          content: '';
+          position: absolute;
+          width: 12px;
+          height: 12px;
+          border-radius: 3px;
+          top: 10px;
+          left: 10px;
+          box-sizing: border-box;
+          background-color: @white;
+          border: 1px solid @gray-1;
+        }
+
+        &:hover {
+          &::before {
+            background-color: @white;
+            border: 1px solid @dark-blue-1;
+          }
+        }
+
+        .ant-select-selected-icon {
+          // For some reason, Ant adds an unnecessary check icon
+          // on the right side when the item is hovered
+          display: none;
+        }
+
+        // checked
+        &.ant-select-dropdown-menu-item-selected {
+          &::after {
+            content: '';
+            color: @white;
+            position: absolute;
+            box-sizing: border-box;
+            display: block;
+            opacity: 1;
+            font-size: 9px;
+            top: 10px;
+            left: 10px;
+            // Pulled/Hard coded checkmark Icon as image/svg to use it as a background
+            // Doing this since we have modify lot of render mehtods of options(AntD select, DropDownMenu.js)
+            // to add checkbox through JS
+            background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 15 15" xmlns="http://www.w3.org/2000/svg"><polyline points="4.2,8.2 6.6,10.5 12.2,3.2" style="fill: none; stroke: white; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 100; vector-effect: non-scaling-stroke; stroke-dashoffset: 91.5;"></polyline></svg>')
+              no-repeat;
+            width: 12px;
+            height: 12px;
+          }
+
+          &::before {
+            background-color: @blue-1;
+            border: 1px solid @blue-1;
+          }
+
+          &:hover {
+            &::before {
+              border-color: @white;
+            }
+
+            &::after {
+              background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 15 15" xmlns="http://www.w3.org/2000/svg"><polyline points="4.2,8.2 6.6,10.5 12.2,3.2" style="fill: none; stroke: white; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 100; vector-effect: non-scaling-stroke; stroke-dashoffset: 91.5;"></polyline></svg>')
+                no-repeat;
+            }
+          }
+        }
+
+        &.ant-select-dropdown-menu-item-disabled {
+          padding-left: 12px;
+
+          &::before {
+            display: none;
+          }
+        }
+      }
+    }
+
+    .ant-select-dropdown-menu-item {
+      &:hover {
+        background: @blue-1;
+        border-color: @blue-1;
+        color: @white;
+      }
+
+      &.ant-select-dropdown-menu-item-disabled {
+        cursor: not-allowed;
+
+        &:hover {
+          background-color: transparent;
+          border-color: transparent;
+          color: @dark-gray-1;
+          cursor: not-allowed;
+
+          .secondary-text {
+            color: @gray-3;
+          }
+        }
+      }
+    }
+  }
+
+  &.borderless {
+    &.ant-select-dropdown {
+      &::before {
+        border: 1px solid @blue-1;
+        border-top: none;
+      }
+
+      > div {
+        box-shadow: inset 1px 0 0 0 @light-gray-1,
+          inset -1px 0 0 0 @light-gray-1, inset 0 -1px 0 0 @light-gray-1,
+          inset 0 1px 0 0 @blue-1, 0 2px 2px 0 fade(@light-gray-1, 20%);
+      }
+    }
+  }
+
+  &.error {
+    &.ant-select-dropdown {
+      &::before {
+        border: 1px solid @dark-red-3;
+        border-top: none;
+      }
+
+      // Dropdown on top
+      &.ant-select-dropdown-placement-topLeft {
+        &::before {
+          border-bottom: none;
+        }
+
+        > div {
+          margin-top: 0;
+          border-radius: 4px 4px 0 0;
+          box-shadow: inset 1px 0 0 0 @light-gray-1,
+            inset -1px 0 0 0 @light-gray-1, inset 0 1px 0 0 @light-gray-1,
+            inset 0 -1px 0 0 @dark-red-3, 0 -2px 2px 0 fade(@light-gray-1, 20%);
+        }
+      }
+
+      > div {
+        box-shadow: inset 1px 0 0 0 @light-gray-1,
+          inset -1px 0 0 0 @light-gray-1, inset 0 -1px 0 0 @light-gray-1,
+          inset 0 1px 0 0 @dark-red-3, 0 2px 2px 0 fade(@light-gray-1, 20%);
+      }
+    }
+  }
+
+  &.detached {
+    &::before {
+      content: none;
+    }
+
+    &.ant-select-dropdown {
+      > div {
+        border-radius: 4px;
+        margin-top: 0;
+        box-shadow: inset 1px 0 0 0 @light-gray-1,
+          inset -1px 0 0 0 @light-gray-1, inset 0 -1px 0 0 @light-gray-1,
+          inset 0 1px 0 0 @light-gray-1, 0 2px 2px 0 fade(@light-gray-1, 20%);
+      }
+    }
+  }
+}
