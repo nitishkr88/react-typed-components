@@ -1,0 +1,154 @@
+@import (reference) '../../styles/main.less';
+
+.rtc.rtc-popover {
+  &.ant-popover {
+    padding: 0;
+    font-family: @default-font-family;
+    font-size: @default-font-size;
+    background-color: @white;
+    border: 1px solid @light-gray-1;
+    border-radius: 4px;
+    box-shadow: 0 9px 9px fade(@black, 2), 0 3px 3px fade(@black, 2),
+      0 1px 1px fade(@black, 2);
+    margin-left: 5px;
+
+    .ant-popover-content {
+      .ant-popover-arrow {
+        border-width: 6px;
+
+        &::after {
+          border-width: 6px;
+        }
+      }
+
+      .ant-popover-inner {
+        background-color: transparent;
+        box-shadow: none;
+
+        .ant-popover-title {
+          .font-styling(
+            @default-font-size,
+            @font-weight-medium,
+            1,
+            @dark-gray-1
+          );
+
+          text-align: center;
+          border: none;
+          padding: 12px 0;
+          height: auto;
+          min-height: 0;
+        }
+
+        .ant-popover-inner-content {
+          padding: 0;
+          p {
+            color: @dark-gray-1;
+          }
+        }
+      }
+    }
+
+    &.dark {
+      background-color: @black;
+      border: 1px solid @black;
+
+      .ant-popover-inner {
+        .ant-popover-title {
+          color: @white;
+        }
+
+        .ant-popover-inner-content {
+          p {
+            color: @white;
+          }
+        }
+      }
+    }
+
+    // Arrows styled and positioned based on the placement
+    &.ant-popover-placement-left .ant-popover-arrow,
+    &.ant-popover-placement-leftBottom .ant-popover-arrow,
+    &.ant-popover-placement-leftTop .ant-popover-arrow {
+      border-left-color: @light-gray-1;
+      right: -13px;
+      margin-top: -8px;
+
+      &::after {
+        bottom: -6px;
+        margin-right: -6px;
+      }
+
+      .dark& {
+        border-left-color: @black;
+
+        &::after {
+          border-left-color: @black;
+        }
+      }
+    }
+
+    &.ant-popover-placement-top .ant-popover-arrow,
+    &.ant-popover-placement-topLeft .ant-popover-arrow,
+    &.ant-popover-placement-topRight .ant-popover-arrow {
+      border-top-color: @light-gray-1;
+      bottom: -12px;
+      margin-left: -8px;
+
+      &::after {
+        bottom: -5px;
+        margin-left: -6px;
+      }
+
+      .dark& {
+        border-top-color: @black;
+
+        &::after {
+          border-top-color: @black;
+        }
+      }
+    }
+
+    &.ant-popover-placement-right .ant-popover-arrow,
+    &.ant-popover-placement-rightBottom .ant-popover-arrow,
+    &.ant-popover-placement-rightTop .ant-popover-arrow {
+      border-right-color: @light-gray-1;
+      left: -13px;
+      margin-top: -6px;
+
+      &::after {
+        bottom: -6px;
+        margin-left: -6px;
+      }
+
+      .dark& {
+        border-right-color: @black;
+
+        &::after {
+          border-right-color: @black;
+        }
+      }
+    }
+
+    &.ant-popover-placement-bottom .ant-popover-arrow,
+    &.ant-popover-placement-bottomLeft .ant-popover-arrow,
+    &.ant-popover-placement-bottomRight .ant-popover-arrow {
+      border-bottom-color: @light-gray-1;
+      top: -12px;
+      margin-left: -8px;
+
+      &::after {
+        top: -5px;
+        margin-left: -6px;
+      }
+
+      .dark& {
+        border-bottom-color: @black;
+
+        &::after {
+          border-bottom-color: @black;
+        }
+      }
+    }
+  }
+}
