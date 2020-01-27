@@ -1,0 +1,41 @@
+@import (reference) '../../styles/main.less';
+
+.rtc-link {
+  font-weight: @link-font-weight;
+
+  &[data-size='small'] {
+    font-size: @title-h4-font-size;
+    line-height: @title-h4-line-height;
+  }
+
+  &[data-size='medium'] {
+    font-size: @link-font-size;
+    line-height: @link-line-height;
+  }
+
+  &[data-type='primary'] {
+    color: @link-primary-font-color;
+  }
+
+  &[data-type='destructive'] {
+    color: @link-delete-font-color;
+  }
+
+  &[data-type='secondary'] {
+    color: @link-info-font-color;
+  }
+
+  &:hover {
+    text-decoration: underline;
+    cursor: pointer;
+  }
+
+  &.disabled {
+    opacity: @disabled-opacity;
+
+    &:hover {
+      text-decoration: none;
+      cursor: default;
+    }
+  }
+}
