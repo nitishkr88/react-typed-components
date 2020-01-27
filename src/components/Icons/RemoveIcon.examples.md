@@ -1,0 +1,3 @@
+```jsx
+<RemoveIcon size="small" />
+```

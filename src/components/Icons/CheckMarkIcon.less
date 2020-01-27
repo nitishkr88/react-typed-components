@@ -1,0 +1,47 @@
+@import (reference) '../../styles/main.less';
+
+.check-mark-icon.size-small {
+  path {
+    fill: none;
+    stroke: @white;
+    stroke-width: 1.1;
+    stroke-linecap: round;
+    stroke-dasharray: 50;
+    stroke-dashoffset: 0;
+    transition: all @checkbox-anim-duration @checkbox-anim-ease-in-circ;
+    vector-effect: non-scaling-stroke;
+  }
+
+  polyline,
+  line {
+    fill: none;
+    stroke: @white;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: 100;
+    stroke-dashoffset: 101;
+    transition: all @checkbox-anim-duration * 1.5 @checkbox-anim-bounce;
+    vector-effect: non-scaling-stroke;
+
+    .ie & {
+      stroke-width: 2;
+    }
+  }
+
+  // when checked
+  &.icon-hover,
+  .rtc-button &,
+  .rtc-status-icon &,
+  .n-checkbox[type='checkbox']:checked + label .svg-rtc-checkbox & {
+    // Animated Checkmark
+    polyline {
+      stroke-dashoffset: 91.5;
+      transition-delay: 100ms;
+
+      .ie .svg-rtc-checkbox {
+        stroke-dashoffset: 89.5;
+      }
+    }
+  }
+}

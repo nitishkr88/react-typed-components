@@ -1,0 +1,3 @@
+```jsx
+<AlertIcon size="small" />
+```

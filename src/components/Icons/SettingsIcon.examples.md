@@ -1,0 +1,3 @@
+```jsx
+<SettingsIcon size="small" />
+```

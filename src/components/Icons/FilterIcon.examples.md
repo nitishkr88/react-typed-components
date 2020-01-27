@@ -1,0 +1,3 @@
+```jsx
+<FilterIcon size="small" />
+```

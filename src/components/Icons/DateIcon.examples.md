@@ -1,0 +1,3 @@
+```jsx
+<DateIcon size="small" />
+```

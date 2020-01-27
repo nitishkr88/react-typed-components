@@ -1,0 +1,3 @@
+```jsx
+<HomeIcon size="small" />
+```

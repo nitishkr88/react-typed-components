@@ -1,0 +1,153 @@
+@import (reference) '../../styles/main.less';
+
+.rtc.rtc-icon {
+  .size(@width, @height) when (ispixel(@height)), (@height = auto) {
+    width: @width;
+    height: @height;
+  }
+
+  .size(@size, @whatever)
+    when
+    not
+    (ispixel(@whatever))
+    and
+    not
+    (@whatever = auto) {
+    width: @size;
+    height: @size;
+  }
+
+  .generate-size(@sizeArray) {
+    @class-name: extract(@sizeArray, 1);
+    @width: extract(@sizeArray, 2);
+    @height: extract(@sizeArray, 3);
+
+    &.size-@{class-name} {
+      .size(@width, @height);
+    }
+  }
+
+  .generate-sizes(@array) {
+    @firstItem: extract(@array, 1);
+    @firstItemLength: length(@firstItem);
+
+    .loop() when (@firstItemLength = 1) {
+      .generate-size(@array);
+    }
+
+    .loop() when (@firstItemLength > 1) {
+      @arrayLength: length(@array);
+
+      .sizes-loop(@i: 1) when (@i <= @arrayLength) {
+        @size: extract(@array, @i);
+
+        .generate-size(@size);
+        .sizes-loop(@i + 1);
+      }
+
+      .sizes-loop();
+    }
+
+    .loop();
+  }
+
+  // default sizes
+  @sizes: small 18px, medium 24px;
+  .generate-sizes(@sizes);
+
+  [stroke='inherit'] {
+    stroke: currentColor;
+  }
+
+  [stroke='light'] {
+    stroke: @dark-gray-1;
+  }
+
+  // For primary color use
+  [stroke='dark'] {
+    stroke: @gray-2;
+  }
+
+  [stroke='gray-1'] {
+    stroke: @gray-1;
+  }
+
+  [stroke='gray'] {
+    stroke: @gray-3;
+  }
+
+  [stroke='light-gray'] {
+    stroke: @light-gray-1;
+  }
+
+  [stroke='light-gray-2'] {
+    stroke: @light-gray-2;
+  }
+
+  [stroke='white'] {
+    stroke: @white;
+  }
+
+  // Fills (Primay usage is dark)
+  [fill='inherit'] {
+    fill: currentColor;
+  }
+
+  [fill='light'] {
+    fill: @dark-gray-1;
+  }
+
+  // For primary color use
+  [fill='dark'] {
+    fill: @gray-2;
+  }
+
+  [fill='gray-1'] {
+    fill: @gray-1;
+  }
+
+  [fill='gray'] {
+    fill: @gray-3;
+  }
+
+  [fill='light-gray'] {
+    fill: @light-gray-1;
+  }
+
+  [fill='light-gray-2'] {
+    fill: @light-gray-2;
+  }
+
+  [fill='white'] {
+    fill: @white;
+  }
+
+  &.chevron-left-icon,
+  &.chevron-right-icon,
+  &.chevron-up-icon,
+  &.chevron-down-icon,
+  &.close-icon,
+  &.refresh-icon,
+  &.warning-icon,
+  &.more-vert-icon,
+  &.alert-icon,
+  &.home-icon,
+  &.plus-icon,
+  &.filter-icon,
+  &.remove-icon,
+  &.search-icon,
+  &.date-icon,
+  &.edit-icon,
+  &.settings-icon {
+    @sizes: small 18px, medium 24px;
+    .generate-sizes(@sizes);
+  }
+
+  &.check-mark-icon {
+    @sizes: small 12px,
+      // specific case only meant for checkboxes
+        medium 10px 9px;
+
+    .generate-sizes(@sizes);
+  }
+}

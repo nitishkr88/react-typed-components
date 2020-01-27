@@ -1,0 +1,3 @@
+```jsx
+<PlusIcon size="small" />
+```

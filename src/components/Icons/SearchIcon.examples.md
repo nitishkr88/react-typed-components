@@ -1,0 +1,3 @@
+```jsx
+<SearchIcon size="small" />
+```
