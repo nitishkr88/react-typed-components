@@ -1,0 +1,33 @@
+@import (reference) '../../styles/main.less';
+
+.rtc-dashboard-widget-layout {
+  height: 100%;
+
+  .layout-header {
+    height: 40px;
+    width: 100%;
+  }
+
+  .layout-body {
+    width: 100%;
+    flex-basis: 100%;
+    padding: 0 20px;
+  }
+
+  .error-overlay {
+    position: relative;
+    width: 100%;
+    height: 100%;
+
+    .error-message {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      color: @dark-red-2;
+      background-color: fade(@white, 90%);
+      text-align: center;
+    }
+  }
+}
