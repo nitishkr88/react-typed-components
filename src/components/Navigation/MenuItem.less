@@ -1,0 +1,26 @@
+@import (reference) '../../styles/main.less';
+
+.rtc.rtc-menu-item {
+  height: 32px;
+  color: @gray-1;
+  font-size: @default-font-size;
+  font-weight: @font-weight-medium;
+  cursor: pointer;
+
+  .info-icon {
+    display: block;
+    margin-top: 2px;
+    visibility: hidden;
+  }
+
+  &:hover {
+    color: @blue-1;
+    .info-icon {
+      visibility: visible;
+    }
+  }
+
+  &[data-active='true'] {
+    background-color: @semi-white-blue;
+  }
+}

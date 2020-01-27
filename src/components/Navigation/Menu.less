@@ -1,0 +1,102 @@
+@import (reference) '../../styles/main.less';
+
+.rtc.rtc-menu {
+  &[data-theme='light'] {
+    background: @white;
+    color: @gray-1;
+
+    .rtc-menu-group {
+      &[data-type='collapsible'] {
+        .collapsible-group {
+          &::before {
+            border-left: 2px solid @light-gray-3;
+          }
+
+          .rtc-menu-item {
+            &[data-active='true'] {
+              &::before {
+                border-left: 2px solid #e9f6fe; // Custom color
+              }
+            }
+          }
+        }
+      }
+
+      // custom color usage for H4 Title
+      &[data-type='default'] {
+        > .mg-title {
+          .rtc-title {
+            /* stylelint-disable-next-line color-no-hex */
+            color: #9ca7b4; // Custom color
+          }
+        }
+      }
+    }
+
+    .rtc-menu-item {
+      &[data-active='true'] {
+        color: @dark-gray-1;
+        box-shadow: inset -2px 0 0 0 @blue-1;
+      }
+
+      // Disabled
+      &[data-disabled='true'] {
+        color: @light-gray-1;
+        cursor: not-allowed;
+      }
+
+      &[data-type='collapsible'] {
+        // active (currently selected)
+        &[data-active='true'] {
+          &::before {
+            border-left: 2px solid @light-blue-2;
+          }
+        }
+      }
+    }
+  }
+
+  &[data-theme='dark'] {
+    background-color: @dark-gray-1;
+
+    .rtc-menu-group {
+      &[data-type='collapsible'] {
+        .collapsible-group {
+          &::before {
+            border-left: 2px solid @dark-gray-2;
+          }
+
+          .rtc-menu-item {
+            &[data-active='true'] {
+              &::before {
+                border-left: 2px solid @dark-gray-3;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .rtc-menu-item {
+      color: @gray-3;
+
+      &[data-active='true'] {
+        background-color: @dark-gray-2;
+        color: @white;
+      }
+
+      // Disabled
+      &[data-disabled='true'] {
+        &,
+        &:hover {
+          color: @dark-gray-2;
+          cursor: not-allowed;
+        }
+      }
+
+      &:hover {
+        color: @white;
+      }
+    }
+  }
+}

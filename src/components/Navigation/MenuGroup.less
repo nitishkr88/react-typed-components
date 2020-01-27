@@ -1,0 +1,76 @@
+@import (reference) '../../styles/main.less';
+
+.rtc.rtc-menu-group {
+  @trans-rate: all 0.3s @menu-anim-ease;
+
+  &[data-type="collapsible"] {
+    height: 32px;
+    overflow: hidden;
+    transition: @trans-rate;
+
+    [data-type="collapsible-header"] {
+      .rtc-icon {
+        height: 32px;
+        transition: all 0.3s ease;
+      }
+    }
+
+    .collapsible-group {
+      @top-bottom-spacing: 10px;
+
+      position: relative;
+      opacity: 0.5;
+      transition: @trans-rate;
+
+      &::before {
+        content: '';
+        display: inline-block;
+        position: absolute;
+        top: @top-bottom-spacing;
+        bottom: @top-bottom-spacing;
+      }
+
+      // Add padding if there is content
+      &:not(:empty) {
+        padding: @top-bottom-spacing 0 @top-bottom-spacing 20px;
+      }
+
+      > .rtc-menu-group {
+        + .rtc-menu-group {
+          margin-top: 10px;
+        }
+      }
+
+      .rtc-menu-item {
+        position: relative;
+
+        &[data-active="true"] {
+          &::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            height: 100%;
+          }
+        }
+      }
+    }
+  }
+
+  > .mg-title {
+    padding: 10px 20px;
+  }
+
+  &[data-expanded="true"] {
+    height: auto;
+
+    > [data-type="collapsible-header"] {
+      .rtc-icon {
+        transform: rotate(-180deg);
+      }
+    }
+
+    .collapsible-group {
+      opacity: 1;
+    }
+  }
+}
